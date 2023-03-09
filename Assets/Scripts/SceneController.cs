@@ -130,6 +130,7 @@ public class SceneController : MonoBehaviour
             Debug.Log("not a match");
             // swap cards
             float duration = 0.75f;
+            StartCoroutine(PutCardsOnSwapLayer(card1, card2, duration));
             Vector3 card1Pos = card1.transform.position;
             Vector3 card2Pos = card2.transform.position;
             iTween.MoveTo(card1.gameObject, card2Pos, duration);
@@ -145,6 +146,20 @@ public class SceneController : MonoBehaviour
         // reset card memory
         card1 = null;
         card2 = null;
+    }
+
+    IEnumerator PutCardsOnSwapLayer(Card card1, Card card2, float duration)
+    {
+        // put on swap layer
+        SpriteRenderer sprite1 = card1.GetComponent<SpriteRenderer>();
+        SpriteRenderer sprite2 = card2.GetComponent<SpriteRenderer>();
+        sprite1.sortingOrder = SortingLayer.GetLayerValueFromName("Swap");
+        sprite2.sortingOrder = SortingLayer.GetLayerValueFromName("Swap");
+        // for this amount of time
+        yield return new WaitForSecondsRealtime(duration);
+        // put back on foreground layer
+        sprite1.sortingOrder = SortingLayer.GetLayerValueFromName("Foreground");
+        sprite2.sortingOrder = SortingLayer.GetLayerValueFromName("Foreground");
     }
 
     public void OnResetButtonPressed()
