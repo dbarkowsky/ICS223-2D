@@ -153,13 +153,13 @@ public class SceneController : MonoBehaviour
         // put on swap layer
         SpriteRenderer sprite1 = card1.GetComponent<SpriteRenderer>();
         SpriteRenderer sprite2 = card2.GetComponent<SpriteRenderer>();
-        sprite1.sortingOrder = SortingLayer.GetLayerValueFromName("Swap");
-        sprite2.sortingOrder = SortingLayer.GetLayerValueFromName("Swap");
+        sprite1.sortingLayerName = "Swap";
+        sprite2.sortingLayerName = "Swap";
         // for this amount of time
         yield return new WaitForSecondsRealtime(duration);
         // put back on foreground layer
-        sprite1.sortingOrder = SortingLayer.GetLayerValueFromName("Foreground");
-        sprite2.sortingOrder = SortingLayer.GetLayerValueFromName("Foreground");
+        sprite1.sortingLayerName = "Foreground";
+        sprite2.sortingLayerName = "Foreground";
     }
 
     public void OnResetButtonPressed()
